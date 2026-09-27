@@ -10,33 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as NewTestRouteImport } from './routes/new-test'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as SensorsRouteImport } from './routes/sensors'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewTestRoute = NewTestRouteImport.update({
+  id: '/new-test',
+  path: '/new-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SensorsRoute = SensorsRouteImport.update({
+  id: '/sensors',
+  path: '/sensors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
+  '/new-test': typeof NewTestRoute
+  '/reports': typeof ReportsRoute
+  '/sensors': typeof SensorsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
+  '/new-test': typeof NewTestRoute
+  '/reports': typeof ReportsRoute
+  '/sensors': typeof SensorsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/history': typeof HistoryRoute
+  '/new-test': typeof NewTestRoute
+  '/reports': typeof ReportsRoute
+  '/sensors': typeof SensorsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/dashboard' | '/history' | '/new-test' | '/reports' | '/sensors'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/dashboard' | '/history' | '/new-test' | '/reports' | '/sensors'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/history'
+    | '/new-test'
+    | '/reports'
+    | '/sensors'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  HistoryRoute: typeof HistoryRoute
+  NewTestRoute: typeof NewTestRoute
+  ReportsRoute: typeof ReportsRoute
+  SensorsRoute: typeof SensorsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +106,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new-test': {
+      id: '/new-test'
+      path: '/new-test'
+      fullPath: '/new-test'
+      preLoaderRoute: typeof NewTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sensors': {
+      id: '/sensors'
+      path: '/sensors'
+      fullPath: '/sensors'
+      preLoaderRoute: typeof SensorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
+  HistoryRoute: HistoryRoute,
+  NewTestRoute: NewTestRoute,
+  ReportsRoute: ReportsRoute,
+  SensorsRoute: SensorsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
