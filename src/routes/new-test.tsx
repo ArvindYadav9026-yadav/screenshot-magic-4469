@@ -65,7 +65,7 @@ export const Route = createFileRoute("/new-test")({
       },
     ],
   }),
-  component: NewTest;
+  component: NewTest,
 });
 
 function NewTest() {
