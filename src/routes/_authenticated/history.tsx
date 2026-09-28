@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { formatDate } from "@/lib/krishi-data";
 import { useKrishi } from "@/lib/krishi-store";
 
-export const Route = createFileRoute("/history")({
+export const Route = createFileRoute("/_authenticated/history")({
   head: () => ({
     meta: [
       { title: "Test History — KrishiFeed AI" },

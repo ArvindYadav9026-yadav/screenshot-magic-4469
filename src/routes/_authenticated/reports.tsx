@@ -9,7 +9,7 @@ import { formatDate } from "@/lib/krishi-data";
 import { useKrishi } from "@/lib/krishi-store";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/reports")({
+export const Route = createFileRoute("/_authenticated/reports")({
   validateSearch: (search: Record<string, unknown>) => ({
     test: typeof search.test === "string" ? search.test : undefined,
   }),

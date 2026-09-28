@@ -49,7 +49,7 @@ import {
 import { useKrishi } from "@/lib/krishi-store";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/new-test")({
+export const Route = createFileRoute("/_authenticated/new-test")({
   head: () => ({
     meta: [
       { title: "New Test — KrishiFeed AI" },

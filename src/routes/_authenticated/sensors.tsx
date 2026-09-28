@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DEMO_SENSORS, NIR_SPECTRUM, SENSOR_DEVICES } from "@/lib/krishi-data";
 
-export const Route = createFileRoute("/sensors")({
+export const Route = createFileRoute("/_authenticated/sensors")({
   head: () => ({
     meta: [
       { title: "Sensor Monitoring — KrishiFeed AI" },
