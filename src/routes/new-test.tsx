@@ -74,7 +74,7 @@ function NewTest() {
 
   return (
     <AppShell
-      title={step === 1 ? "Farmer Details" : STEPS[step - 1]}
+      title={step === 1 ? "Farmer Details" : (STEPS[step - 1] ?? "")}
       subtitle={
         step === 1
           ? "Enter farmer information before starting the test."

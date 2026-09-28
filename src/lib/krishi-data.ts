@@ -225,7 +225,7 @@ const demoFarmers: Farmer[] = [
 export const DEMO_TESTS: TestRecord[] = [
   {
     id: "FD-2026-00124",
-    farmer: demoFarmers[0],
+    farmer: demoFarmers[0]!,
     sample: {
       id: "FD-2026-00124",
       farmer_id: "FR-1001",
@@ -243,7 +243,7 @@ export const DEMO_TESTS: TestRecord[] = [
   },
   {
     id: "SL-2026-00089",
-    farmer: demoFarmers[1],
+    farmer: demoFarmers[1]!,
     sample: {
       id: "SL-2026-00089",
       farmer_id: "FR-1002",
@@ -261,7 +261,7 @@ export const DEMO_TESTS: TestRecord[] = [
   },
   {
     id: "FD-2026-00121",
-    farmer: demoFarmers[2],
+    farmer: demoFarmers[2]!,
     sample: {
       id: "FD-2026-00121",
       farmer_id: "FR-1003",
