@@ -62,11 +62,11 @@ function Dashboard() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
             <Card key={s.label}>
-              <CardContent className="flex items-center gap-4">
+              <CardContent className="grid grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-x-4">
                 <span className="grid size-11 place-items-center rounded-xl bg-secondary text-secondary-foreground">
                   <s.icon className="size-5" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <p className="stat-label">{s.label}</p>
                   <p className="font-display text-xl font-semibold">{s.value}</p>
                 </div>
@@ -146,7 +146,7 @@ function QuickCard({
   return (
     <Link to={to} className="group">
       <Card className="h-full transition-shadow group-hover:shadow-lift">
-        <CardContent className="space-y-3">
+        <CardContent className="grid h-full grid-rows-[2.5rem_auto_1fr] gap-y-3">
           <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground">
             <Icon className="size-5" />
           </span>

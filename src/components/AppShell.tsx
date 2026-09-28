@@ -46,14 +46,16 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
             to={item.to}
             onClick={onNavigate}
             className={cn(
-              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+              "grid grid-cols-[1rem_minmax(0,1fr)] items-center gap-x-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
               active
                 ? "bg-sidebar-primary text-sidebar-primary-foreground"
                 : "text-sidebar-foreground/85 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
             )}
           >
-            <item.icon className="size-4 shrink-0" />
-            {item.label}
+            <span className="grid size-4 place-items-center">
+              <item.icon className="size-4" />
+            </span>
+            <span className="min-w-0">{item.label}</span>
           </Link>
         );
       })}
@@ -63,11 +65,11 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
 
 function Brand() {
   return (
-    <Link to="/" className="flex items-center gap-2.5">
+    <Link to="/" className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-x-2.5">
       <span className="grid size-9 place-items-center rounded-xl bg-sidebar-primary text-sidebar-primary-foreground">
         <Leaf className="size-5" />
       </span>
-      <span className="leading-tight">
+      <span className="min-w-0 leading-tight">
         <span className="block font-display text-base font-semibold text-sidebar-foreground">
           KrishiFeed AI
         </span>
