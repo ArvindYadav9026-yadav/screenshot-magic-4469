@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - tsconfig: exactOptionalPropertyTypes and noPropertyAccessFromIndexSignature are off — they blocked common form/search-param patterns.
+- App screens use one pathless access gate that accepts either a verified Cloud user or a session-only Demo Mode pass.
