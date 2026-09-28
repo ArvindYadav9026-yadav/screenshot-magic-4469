@@ -10,20 +10,45 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdvisoryRouteImport } from './routes/advisory'
+import { Route as CloudRouteImport } from './routes/cloud'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as FarmersRouteImport } from './routes/farmers'
+import { Route as FeedAnalysisRouteImport } from './routes/feed-analysis'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as NewTestRouteImport } from './routes/new-test'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as SensorsRouteImport } from './routes/sensors'
+import { Route as SilageAnalysisRouteImport } from './routes/silage-analysis'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdvisoryRoute = AdvisoryRouteImport.update({
+  id: '/advisory',
+  path: '/advisory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CloudRoute = CloudRouteImport.update({
+  id: '/cloud',
+  path: '/cloud',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FarmersRoute = FarmersRouteImport.update({
+  id: '/farmers',
+  path: '/farmers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedAnalysisRoute = FeedAnalysisRouteImport.update({
+  id: '/feed-analysis',
+  path: '/feed-analysis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoryRoute = HistoryRouteImport.update({
@@ -46,55 +71,106 @@ const SensorsRoute = SensorsRouteImport.update({
   path: '/sensors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SilageAnalysisRoute = SilageAnalysisRouteImport.update({
+  id: '/silage-analysis',
+  path: '/silage-analysis',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/advisory': typeof AdvisoryRoute
+  '/cloud': typeof CloudRoute
   '/dashboard': typeof DashboardRoute
+  '/farmers': typeof FarmersRoute
+  '/feed-analysis': typeof FeedAnalysisRoute
   '/history': typeof HistoryRoute
   '/new-test': typeof NewTestRoute
   '/reports': typeof ReportsRoute
   '/sensors': typeof SensorsRoute
+  '/silage-analysis': typeof SilageAnalysisRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/advisory': typeof AdvisoryRoute
+  '/cloud': typeof CloudRoute
   '/dashboard': typeof DashboardRoute
+  '/farmers': typeof FarmersRoute
+  '/feed-analysis': typeof FeedAnalysisRoute
   '/history': typeof HistoryRoute
   '/new-test': typeof NewTestRoute
   '/reports': typeof ReportsRoute
   '/sensors': typeof SensorsRoute
+  '/silage-analysis': typeof SilageAnalysisRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/advisory': typeof AdvisoryRoute
+  '/cloud': typeof CloudRoute
   '/dashboard': typeof DashboardRoute
+  '/farmers': typeof FarmersRoute
+  '/feed-analysis': typeof FeedAnalysisRoute
   '/history': typeof HistoryRoute
   '/new-test': typeof NewTestRoute
   '/reports': typeof ReportsRoute
   '/sensors': typeof SensorsRoute
+  '/silage-analysis': typeof SilageAnalysisRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/dashboard' | '/history' | '/new-test' | '/reports' | '/sensors'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/history' | '/new-test' | '/reports' | '/sensors'
-  id:
-    | '__root__'
     | '/'
+    | '/advisory'
+    | '/cloud'
     | '/dashboard'
+    | '/farmers'
+    | '/feed-analysis'
     | '/history'
     | '/new-test'
     | '/reports'
     | '/sensors'
+    | '/silage-analysis'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/advisory'
+    | '/cloud'
+    | '/dashboard'
+    | '/farmers'
+    | '/feed-analysis'
+    | '/history'
+    | '/new-test'
+    | '/reports'
+    | '/sensors'
+    | '/silage-analysis'
+  id:
+    | '__root__'
+    | '/'
+    | '/advisory'
+    | '/cloud'
+    | '/dashboard'
+    | '/farmers'
+    | '/feed-analysis'
+    | '/history'
+    | '/new-test'
+    | '/reports'
+    | '/sensors'
+    | '/silage-analysis'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdvisoryRoute: typeof AdvisoryRoute
+  CloudRoute: typeof CloudRoute
   DashboardRoute: typeof DashboardRoute
+  FarmersRoute: typeof FarmersRoute
+  FeedAnalysisRoute: typeof FeedAnalysisRoute
   HistoryRoute: typeof HistoryRoute
   NewTestRoute: typeof NewTestRoute
   ReportsRoute: typeof ReportsRoute
   SensorsRoute: typeof SensorsRoute
+  SilageAnalysisRoute: typeof SilageAnalysisRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -106,11 +182,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/advisory': {
+      id: '/advisory'
+      path: '/advisory'
+      fullPath: '/advisory'
+      preLoaderRoute: typeof AdvisoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cloud': {
+      id: '/cloud'
+      path: '/cloud'
+      fullPath: '/cloud'
+      preLoaderRoute: typeof CloudRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/farmers': {
+      id: '/farmers'
+      path: '/farmers'
+      fullPath: '/farmers'
+      preLoaderRoute: typeof FarmersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed-analysis': {
+      id: '/feed-analysis'
+      path: '/feed-analysis'
+      fullPath: '/feed-analysis'
+      preLoaderRoute: typeof FeedAnalysisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/history': {
@@ -141,16 +245,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SensorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/silage-analysis': {
+      id: '/silage-analysis'
+      path: '/silage-analysis'
+      fullPath: '/silage-analysis'
+      preLoaderRoute: typeof SilageAnalysisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdvisoryRoute: AdvisoryRoute,
+  CloudRoute: CloudRoute,
   DashboardRoute: DashboardRoute,
+  FarmersRoute: FarmersRoute,
+  FeedAnalysisRoute: FeedAnalysisRoute,
   HistoryRoute: HistoryRoute,
   NewTestRoute: NewTestRoute,
   ReportsRoute: ReportsRoute,
   SensorsRoute: SensorsRoute,
+  SilageAnalysisRoute: SilageAnalysisRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
