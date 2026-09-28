@@ -74,7 +74,7 @@ function NewTest() {
 
   return (
     <AppShell
-      title={step === 1 ? "Farmer Details" : STEPS[step - 1]}
+      title={step === 1 ? "Farmer Details" : (STEPS[step - 1] ?? "")}
       subtitle={
         step === 1
           ? "Enter farmer information before starting the test."
@@ -83,8 +83,8 @@ function NewTest() {
             : `Step ${step} of 6 — ${STEPS[step - 1]}`
       }
     >
-      <div className="grid gap-6 lg:grid-cols-[15rem_1fr]">
-        <div className="lg:sticky lg:top-24 lg:self-start">
+      <div className="grid gap-6 lg:grid-cols-[15rem_1fr] [&>*]:min-w-0">
+        <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <TestStepper />
         </div>
         <div>
