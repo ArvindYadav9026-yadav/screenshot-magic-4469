@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- tsconfig: exactOptionalPropertyTypes and noPropertyAccessFromIndexSignature are off — they blocked common form/search-param patterns.
