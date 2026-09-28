@@ -3,7 +3,7 @@ import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const Route = createFileRoute("/feed-analysis")({
+export const Route = createFileRoute("/_authenticated/feed-analysis")({
   head: () => ({
     meta: [
       { title: "Feed Analysis — KrishiFeed AI" },

@@ -1,163 +1,165 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  Activity,
-  BadgeCheck,
-  CloudUpload,
-  Leaf,
-  QrCode as QrIcon,
-  ScanLine,
-  Sprout,
-  Wheat,
-} from "lucide-react";
-import heroImage from "@/assets/hero-farm.jpg";
-import { Badge } from "@/components/ui/badge";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { Eye, EyeOff, Leaf, LockKeyhole, Phone, ShieldCheck } from "lucide-react";
+import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { supabase } from "@/integrations/supabase/client";
+import { clearDemoSession, hasAppAccess, startDemoSession } from "@/lib/auth-session";
 
 export const Route = createFileRoute("/")({
+  beforeLoad: async () => {
+    if (typeof window !== "undefined" && (await hasAppAccess())) {
+      throw redirect({ to: "/dashboard" });
+    }
+  },
   head: () => ({
     meta: [
-      { title: "KrishiFeed AI — Test Cattle Feed & Silage Quality in Minutes" },
+      { title: "Login — KrishiFeed AI" },
       {
         name: "description",
-        content:
-          "KrishiFeed AI checks cattle feed and silage for nutrition, adulteration and spoilage using AI, NIR spectra and field sensors, then gives farmers plain advice.",
+        content: "Sign in to KrishiFeed AI or continue in Demo Mode to explore feed and silage intelligence.",
       },
-      { property: "og:title", content: "KrishiFeed AI — Feed & Silage Quality Testing" },
+      { property: "og:title", content: "Login — KrishiFeed AI" },
       {
         property: "og:description",
-        content:
-          "Nutrition, contamination screening and farmer advisory from one sample — in minutes, in your own language.",
+        content: "Secure access to KrishiFeed AI feed and silage quality testing.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: Landing,
+  component: Login,
 });
 
-const FEATURES = [
-  {
-    icon: Wheat,
-    title: "Feed analysis",
-    text: "Protein, moisture, fibre, energy and mineral status estimated from one sample.",
-  },
-  {
-    icon: Sprout,
-    title: "Silage analysis",
-    text: "Fermentation quality, pH, lactic acid and spoilage risk for your pit or bale.",
-  },
-  {
-    icon: ScanLine,
-    title: "Adulteration screening",
-    text: "Urea, sand, fungal and mycotoxin risk flagged before you buy in bulk.",
-  },
-  {
-    icon: Activity,
-    title: "Sensor fusion",
-    text: "NIR spectrometer, moisture, pH, temperature and humidity read together.",
-  },
-  {
-    icon: QrIcon,
-    title: "QR traceability",
-    text: "Every batch gets a code so buyers can trace the test back to the farm.",
-  },
-  {
-    icon: CloudUpload,
-    title: "Works offline",
-    text: "Test in the field without a network; results sync when you are back online.",
-  },
-];
+function Login() {
+  const navigate = useNavigate();
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-function Landing() {
+  async function handleLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    const normalizedPhone = phone.replace(/[\s()-]/g, "");
+
+    if (!/^\+[1-9]\d{7,14}$/.test(normalizedPhone)) {
+      setError("Enter a valid phone number with country code, for example +91 98765 43210.");
+      return;
+    }
+    if (!password) {
+      setError("Enter your password.");
+      return;
+    }
+
+    setSubmitting(true);
+    clearDemoSession();
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      phone: normalizedPhone,
+      password,
+    });
+    setSubmitting(false);
+
+    if (signInError) {
+      setError("The phone number or password is incorrect.");
+      return;
+    }
+    await navigate({ to: "/dashboard", replace: true });
+  }
+
+  async function handleDemo() {
+    clearDemoSession();
+    await supabase.auth.signOut();
+    startDemoSession();
+    await navigate({ to: "/dashboard", replace: true });
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-field">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
-        <div className="flex items-center gap-2.5">
-          <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground">
-            <Leaf className="size-5" />
+    <main className="grid min-h-screen bg-gradient-field lg:grid-cols-[minmax(0,1fr)_minmax(25rem,0.78fr)]">
+      <section className="hidden min-h-screen flex-col justify-between bg-sidebar p-10 text-sidebar-foreground lg:flex xl:p-14">
+        <div className="flex items-center gap-3">
+          <span className="grid size-11 place-items-center rounded-xl bg-sidebar-primary text-sidebar-primary-foreground">
+            <Leaf className="size-6" />
           </span>
-          <span className="font-display text-lg font-semibold">KrishiFeed AI</span>
-        </div>
-        <Button asChild>
-          <Link to="/dashboard">Open Dashboard</Link>
-        </Button>
-      </header>
-
-      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:py-16">
-        <div>
-          <Badge variant="secondary">Prototype · Demo Mode</Badge>
-          <h1 className="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">
-            Know your cattle feed quality before you feed it.
-          </h1>
-          <p className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
-            KrishiFeed AI combines a photo of the sample, NIR spectra and field sensors to estimate
-            nutrition, screen for adulteration, and give advice in your own language.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              <Link to="/new-test">Start New Test</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link to="/dashboard">See the dashboard</Link>
-            </Button>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground">
-            <span className="flex items-center gap-2">
-              <BadgeCheck className="size-4 text-primary" /> Results in under 3 minutes
-            </span>
-            <span className="flex items-center gap-2">
-              <BadgeCheck className="size-4 text-primary" /> 6 Indian languages
-            </span>
-            <span className="flex items-center gap-2">
-              <BadgeCheck className="size-4 text-primary" /> No laboratory needed on site
-            </span>
+          <div>
+            <p className="font-display text-xl font-semibold">KrishiFeed AI</p>
+            <p className="text-xs tracking-wide text-sidebar-foreground/65">FEED &amp; SILAGE INTELLIGENCE</p>
           </div>
         </div>
-        <div className="overflow-hidden rounded-3xl border border-border shadow-lift">
-          <img
-            src={heroImage}
-            alt="Dairy farmer holding cattle feed pellets in a green field"
-            width={1600}
-            height={1008}
-            className="h-full w-full object-cover"
-          />
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-6">
-        <h2 className="font-display text-2xl font-semibold">What KrishiFeed AI checks</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f) => (
-            <Card key={f.title}>
-              <CardContent className="space-y-3">
-                <span className="grid size-10 place-items-center rounded-xl bg-secondary text-secondary-foreground">
-                  <f.icon className="size-5" />
-                </span>
-                <h3 className="font-display text-base font-semibold">{f.title}</h3>
-                <p className="text-sm text-muted-foreground">{f.text}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="rounded-3xl bg-gradient-leaf p-8 text-primary-foreground sm:p-12">
-          <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-            One sample. Six steps. A clear answer.
-          </h2>
-          <p className="mt-3 max-w-2xl opacity-90">
-            Farmer details, sample registration, photo capture, sensor readings, AI analysis and a
-            shareable report with a traceability code.
+        <div className="max-w-xl pb-12">
+          <p className="font-display text-4xl font-semibold leading-tight xl:text-5xl">
+            Better feed decisions begin with a reliable test.
           </p>
-          <Button asChild size="lg" variant="secondary" className="mt-6">
-            <Link to="/new-test">Start New Test</Link>
-          </Button>
+          <p className="mt-5 max-w-lg text-base leading-7 text-sidebar-foreground/75">
+            Field-ready feed and silage analysis for clear nutrition, quality, and farmer advisory results.
+          </p>
         </div>
+        <p className="text-xs text-sidebar-foreground/55">Secure field intelligence for dairy teams.</p>
       </section>
 
-      <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground">
-        KrishiFeed AI prototype — all readings, scores and advisories shown are simulated demo data.
-      </footer>
-    </div>
+      <section className="flex min-h-screen items-center justify-center px-4 py-8 sm:px-8 lg:px-12">
+        <div className="w-full max-w-md">
+          <div className="mb-9 flex items-center gap-3 lg:hidden">
+            <span className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground">
+              <Leaf className="size-6" />
+            </span>
+            <div>
+              <p className="font-display text-xl font-semibold">KrishiFeed AI</p>
+              <p className="text-xs tracking-wide text-muted-foreground">FEED &amp; SILAGE INTELLIGENCE</p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
+            <h1 className="font-display text-3xl font-semibold">Welcome back</h1>
+            <p className="mt-2 text-sm text-muted-foreground">Sign in to continue to your dashboard.</p>
+
+            <form className="mt-7 space-y-5" onSubmit={handleLogin} noValidate>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <div className="relative">
+                  <Phone className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="+91 98765 43210" value={phone} onChange={(event) => setPhone(event.target.value)} className="h-12 pl-10" aria-invalid={Boolean(error)} />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input id="password" type={showPassword ? "text" : "password"} autoComplete="current-password" placeholder="Enter your password" value={password} onChange={(event) => setPassword(event.target.value)} className="h-12 px-10" aria-invalid={Boolean(error)} />
+                  <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 size-10 -translate-y-1/2" onClick={() => setShowPassword((visible) => !visible)} aria-label={showPassword ? "Hide password" : "Show password"}>
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </Button>
+                </div>
+              </div>
+
+              {error ? <p className="text-sm font-medium text-destructive" role="alert">{error}</p> : null}
+
+              <Button type="submit" className="h-12 w-full" disabled={submitting}>
+                {submitting ? "Signing in…" : "Login"}
+              </Button>
+            </form>
+
+            <div className="my-6 flex items-center gap-3">
+              <Separator className="flex-1" />
+              <span className="text-xs font-medium uppercase text-muted-foreground">or</span>
+              <Separator className="flex-1" />
+            </div>
+
+            <Button type="button" variant="secondary" className="h-12 w-full" onClick={handleDemo}>
+              <ShieldCheck /> Continue in Demo Mode
+            </Button>
+            <p className="mt-4 text-center text-xs leading-5 text-muted-foreground">
+              Explore realistic pre-filled sample data without credentials.
+            </p>
+          </div>
+
+          <p className="mt-6 text-center text-xs text-muted-foreground">Authorized access for KrishiFeed AI field teams.</p>
+        </div>
+      </section>
+    </main>
   );
 }

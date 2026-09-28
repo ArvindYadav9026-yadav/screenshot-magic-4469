@@ -3,7 +3,7 @@ import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const Route = createFileRoute("/silage-analysis")({
+export const Route = createFileRoute("/_authenticated/silage-analysis")({
   head: () => ({
     meta: [
       { title: "Silage Analysis — KrishiFeed AI" },

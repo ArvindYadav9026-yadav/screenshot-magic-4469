@@ -10,112 +10,120 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdvisoryRouteImport } from './routes/advisory'
-import { Route as CloudRouteImport } from './routes/cloud'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as FarmersRouteImport } from './routes/farmers'
-import { Route as FeedAnalysisRouteImport } from './routes/feed-analysis'
-import { Route as HistoryRouteImport } from './routes/history'
-import { Route as NewTestRouteImport } from './routes/new-test'
-import { Route as ReportsRouteImport } from './routes/reports'
-import { Route as SensorsRouteImport } from './routes/sensors'
-import { Route as SilageAnalysisRouteImport } from './routes/silage-analysis'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthenticatedAdvisoryRouteImport } from './routes/_authenticated/advisory'
+import { Route as AuthenticatedCloudRouteImport } from './routes/_authenticated/cloud'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedFarmersRouteImport } from './routes/_authenticated/farmers'
+import { Route as AuthenticatedFeedAnalysisRouteImport } from './routes/_authenticated/feed-analysis'
+import { Route as AuthenticatedHistoryRouteImport } from './routes/_authenticated/history'
+import { Route as AuthenticatedNewTestRouteImport } from './routes/_authenticated/new-test'
+import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
+import { Route as AuthenticatedSensorsRouteImport } from './routes/_authenticated/sensors'
+import { Route as AuthenticatedSilageAnalysisRouteImport } from './routes/_authenticated/silage-analysis'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdvisoryRoute = AdvisoryRouteImport.update({
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdvisoryRoute = AuthenticatedAdvisoryRouteImport.update({
   id: '/advisory',
   path: '/advisory',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const CloudRoute = CloudRouteImport.update({
+const AuthenticatedCloudRoute = AuthenticatedCloudRouteImport.update({
   id: '/cloud',
   path: '/cloud',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const DashboardRoute = DashboardRouteImport.update({
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const FarmersRoute = FarmersRouteImport.update({
+const AuthenticatedFarmersRoute = AuthenticatedFarmersRouteImport.update({
   id: '/farmers',
   path: '/farmers',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const FeedAnalysisRoute = FeedAnalysisRouteImport.update({
-  id: '/feed-analysis',
-  path: '/feed-analysis',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistoryRoute = HistoryRouteImport.update({
+const AuthenticatedFeedAnalysisRoute =
+  AuthenticatedFeedAnalysisRouteImport.update({
+    id: '/feed-analysis',
+    path: '/feed-analysis',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHistoryRoute = AuthenticatedHistoryRouteImport.update({
   id: '/history',
   path: '/history',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const NewTestRoute = NewTestRouteImport.update({
+const AuthenticatedNewTestRoute = AuthenticatedNewTestRouteImport.update({
   id: '/new-test',
   path: '/new-test',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const ReportsRoute = ReportsRouteImport.update({
+const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const SensorsRoute = SensorsRouteImport.update({
+const AuthenticatedSensorsRoute = AuthenticatedSensorsRouteImport.update({
   id: '/sensors',
   path: '/sensors',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const SilageAnalysisRoute = SilageAnalysisRouteImport.update({
-  id: '/silage-analysis',
-  path: '/silage-analysis',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedSilageAnalysisRoute =
+  AuthenticatedSilageAnalysisRouteImport.update({
+    id: '/silage-analysis',
+    path: '/silage-analysis',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/advisory': typeof AdvisoryRoute
-  '/cloud': typeof CloudRoute
-  '/dashboard': typeof DashboardRoute
-  '/farmers': typeof FarmersRoute
-  '/feed-analysis': typeof FeedAnalysisRoute
-  '/history': typeof HistoryRoute
-  '/new-test': typeof NewTestRoute
-  '/reports': typeof ReportsRoute
-  '/sensors': typeof SensorsRoute
-  '/silage-analysis': typeof SilageAnalysisRoute
+  '/advisory': typeof AuthenticatedAdvisoryRoute
+  '/cloud': typeof AuthenticatedCloudRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/farmers': typeof AuthenticatedFarmersRoute
+  '/feed-analysis': typeof AuthenticatedFeedAnalysisRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/new-test': typeof AuthenticatedNewTestRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/sensors': typeof AuthenticatedSensorsRoute
+  '/silage-analysis': typeof AuthenticatedSilageAnalysisRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/advisory': typeof AdvisoryRoute
-  '/cloud': typeof CloudRoute
-  '/dashboard': typeof DashboardRoute
-  '/farmers': typeof FarmersRoute
-  '/feed-analysis': typeof FeedAnalysisRoute
-  '/history': typeof HistoryRoute
-  '/new-test': typeof NewTestRoute
-  '/reports': typeof ReportsRoute
-  '/sensors': typeof SensorsRoute
-  '/silage-analysis': typeof SilageAnalysisRoute
+  '/advisory': typeof AuthenticatedAdvisoryRoute
+  '/cloud': typeof AuthenticatedCloudRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/farmers': typeof AuthenticatedFarmersRoute
+  '/feed-analysis': typeof AuthenticatedFeedAnalysisRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/new-test': typeof AuthenticatedNewTestRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/sensors': typeof AuthenticatedSensorsRoute
+  '/silage-analysis': typeof AuthenticatedSilageAnalysisRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/advisory': typeof AdvisoryRoute
-  '/cloud': typeof CloudRoute
-  '/dashboard': typeof DashboardRoute
-  '/farmers': typeof FarmersRoute
-  '/feed-analysis': typeof FeedAnalysisRoute
-  '/history': typeof HistoryRoute
-  '/new-test': typeof NewTestRoute
-  '/reports': typeof ReportsRoute
-  '/sensors': typeof SensorsRoute
-  '/silage-analysis': typeof SilageAnalysisRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/_authenticated/advisory': typeof AuthenticatedAdvisoryRoute
+  '/_authenticated/cloud': typeof AuthenticatedCloudRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/farmers': typeof AuthenticatedFarmersRoute
+  '/_authenticated/feed-analysis': typeof AuthenticatedFeedAnalysisRoute
+  '/_authenticated/history': typeof AuthenticatedHistoryRoute
+  '/_authenticated/new-test': typeof AuthenticatedNewTestRoute
+  '/_authenticated/reports': typeof AuthenticatedReportsRoute
+  '/_authenticated/sensors': typeof AuthenticatedSensorsRoute
+  '/_authenticated/silage-analysis': typeof AuthenticatedSilageAnalysisRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -147,30 +155,22 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/advisory'
-    | '/cloud'
-    | '/dashboard'
-    | '/farmers'
-    | '/feed-analysis'
-    | '/history'
-    | '/new-test'
-    | '/reports'
-    | '/sensors'
-    | '/silage-analysis'
+    | '/_authenticated'
+    | '/_authenticated/advisory'
+    | '/_authenticated/cloud'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/farmers'
+    | '/_authenticated/feed-analysis'
+    | '/_authenticated/history'
+    | '/_authenticated/new-test'
+    | '/_authenticated/reports'
+    | '/_authenticated/sensors'
+    | '/_authenticated/silage-analysis'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdvisoryRoute: typeof AdvisoryRoute
-  CloudRoute: typeof CloudRoute
-  DashboardRoute: typeof DashboardRoute
-  FarmersRoute: typeof FarmersRoute
-  FeedAnalysisRoute: typeof FeedAnalysisRoute
-  HistoryRoute: typeof HistoryRoute
-  NewTestRoute: typeof NewTestRoute
-  ReportsRoute: typeof ReportsRoute
-  SensorsRoute: typeof SensorsRoute
-  SilageAnalysisRoute: typeof SilageAnalysisRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -182,91 +182,118 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/advisory': {
-      id: '/advisory'
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/advisory': {
+      id: '/_authenticated/advisory'
       path: '/advisory'
       fullPath: '/advisory'
-      preLoaderRoute: typeof AdvisoryRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAdvisoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/cloud': {
-      id: '/cloud'
+    '/_authenticated/cloud': {
+      id: '/_authenticated/cloud'
       path: '/cloud'
       fullPath: '/cloud'
-      preLoaderRoute: typeof CloudRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedCloudRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/dashboard': {
-      id: '/dashboard'
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/farmers': {
-      id: '/farmers'
+    '/_authenticated/farmers': {
+      id: '/_authenticated/farmers'
       path: '/farmers'
       fullPath: '/farmers'
-      preLoaderRoute: typeof FarmersRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedFarmersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/feed-analysis': {
-      id: '/feed-analysis'
+    '/_authenticated/feed-analysis': {
+      id: '/_authenticated/feed-analysis'
       path: '/feed-analysis'
       fullPath: '/feed-analysis'
-      preLoaderRoute: typeof FeedAnalysisRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedFeedAnalysisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/history': {
-      id: '/history'
+    '/_authenticated/history': {
+      id: '/_authenticated/history'
       path: '/history'
       fullPath: '/history'
-      preLoaderRoute: typeof HistoryRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedHistoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/new-test': {
-      id: '/new-test'
+    '/_authenticated/new-test': {
+      id: '/_authenticated/new-test'
       path: '/new-test'
       fullPath: '/new-test'
-      preLoaderRoute: typeof NewTestRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedNewTestRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/reports': {
-      id: '/reports'
+    '/_authenticated/reports': {
+      id: '/_authenticated/reports'
       path: '/reports'
       fullPath: '/reports'
-      preLoaderRoute: typeof ReportsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedReportsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/sensors': {
-      id: '/sensors'
+    '/_authenticated/sensors': {
+      id: '/_authenticated/sensors'
       path: '/sensors'
       fullPath: '/sensors'
-      preLoaderRoute: typeof SensorsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedSensorsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/silage-analysis': {
-      id: '/silage-analysis'
+    '/_authenticated/silage-analysis': {
+      id: '/_authenticated/silage-analysis'
       path: '/silage-analysis'
       fullPath: '/silage-analysis'
-      preLoaderRoute: typeof SilageAnalysisRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedSilageAnalysisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdvisoryRoute: typeof AuthenticatedAdvisoryRoute
+  AuthenticatedCloudRoute: typeof AuthenticatedCloudRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedFarmersRoute: typeof AuthenticatedFarmersRoute
+  AuthenticatedFeedAnalysisRoute: typeof AuthenticatedFeedAnalysisRoute
+  AuthenticatedHistoryRoute: typeof AuthenticatedHistoryRoute
+  AuthenticatedNewTestRoute: typeof AuthenticatedNewTestRoute
+  AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
+  AuthenticatedSensorsRoute: typeof AuthenticatedSensorsRoute
+  AuthenticatedSilageAnalysisRoute: typeof AuthenticatedSilageAnalysisRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdvisoryRoute: AuthenticatedAdvisoryRoute,
+  AuthenticatedCloudRoute: AuthenticatedCloudRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedFarmersRoute: AuthenticatedFarmersRoute,
+  AuthenticatedFeedAnalysisRoute: AuthenticatedFeedAnalysisRoute,
+  AuthenticatedHistoryRoute: AuthenticatedHistoryRoute,
+  AuthenticatedNewTestRoute: AuthenticatedNewTestRoute,
+  AuthenticatedReportsRoute: AuthenticatedReportsRoute,
+  AuthenticatedSensorsRoute: AuthenticatedSensorsRoute,
+  AuthenticatedSilageAnalysisRoute: AuthenticatedSilageAnalysisRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdvisoryRoute: AdvisoryRoute,
-  CloudRoute: CloudRoute,
-  DashboardRoute: DashboardRoute,
-  FarmersRoute: FarmersRoute,
-  FeedAnalysisRoute: FeedAnalysisRoute,
-  HistoryRoute: HistoryRoute,
-  NewTestRoute: NewTestRoute,
-  ReportsRoute: ReportsRoute,
-  SensorsRoute: SensorsRoute,
-  SilageAnalysisRoute: SilageAnalysisRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

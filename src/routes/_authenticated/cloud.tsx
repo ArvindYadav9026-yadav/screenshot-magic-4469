@@ -3,7 +3,7 @@ import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const Route = createFileRoute("/cloud")({
+export const Route = createFileRoute("/_authenticated/cloud")({
   head: () => ({
     meta: [
       { title: "Cloud Dashboard — KrishiFeed AI" },
